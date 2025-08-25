@@ -10,9 +10,16 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         // Adicionar diretamente do env depois
-        builder.Services.AddDbContext<BackendDbContext>(options => options.UseNpgsql($"HOST=localhost;Port=5432;Database=restapi;Username=postgres;Password=rest")); 
+        builder.Services.AddDbContext<BackendDbContext>(options => options.UseNpgsql($"HOST=localhost;Port=5432;Database=restapi;Username=postgres;Password=rest"));
 
         // Add services to the container.
+        //Repository
+        builder.Services.AddScoped<Repository.Interface.ILaboratorioRepository, Repository.LaboratorioRepository>();
+        builder.Services.AddScoped<Repository.Interface.ISalaRepository, Repository.SalaRepository>();
+
+        //Services
+        builder.Services.AddScoped<Service.Interface.ILaboratorioService, Service.LaboratorioService>();
+        builder.Services.AddScoped<Service.Interface.ISalaService, Service.SalaService>();
 
         builder.Services.AddControllers();
         // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
