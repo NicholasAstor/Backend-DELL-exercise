@@ -19,11 +19,11 @@ public class LaboratorioService(LaboratorioRepository _repository) : ILaboratori
     public async Task<LaboratorioDto?> GetByIdAsync(long id)
     {
         var laboratorio = await _repository.GetByIdAsync(id);
-
-        var result = new LaboratorioDto(laboratorio.Nome, laboratorio.QtdComputadores, laboratorio.Descricao);
-
-        return result; 
+        
+            var result = new LaboratorioDto(laboratorio.Nome, laboratorio.QtdComputadores, laboratorio.Descricao);
+            return result;
     }
 
-    public async Task<Laboratorio> UpdateAsync(long id, LaboratorioDto dto) => await _repository.UpdateAsync(id, dto.Nome, dto.QtdComputadores, dto.Descricao);
+    public async Task<Laboratorio> UpdateAsync(long id, LaboratorioDto dto) => await
+        _repository.UpdateAsync(id, dto.Nome, dto.QtdComputadores, dto.Descricao);
 }
