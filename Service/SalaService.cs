@@ -1,12 +1,19 @@
 using backend.Models;
 using backend.Models.Dto;
 using backend.Repository;
+using backend.Repository.Interface;
 using backend.Service.Interface;
 
 namespace backend.Service;
 
-public class SalaService (SalaRepository _repository) : ISalaService
+public class SalaService : ISalaService
 {
+    private readonly ISalaRepository _repository;
+
+    public SalaService(ISalaRepository repo)
+    {
+        _repository = repo;
+    }
     public async Task<IEnumerable<SalaDto>> GetAllAsync()
     {
         var salas = await _repository.GetAllAsync();

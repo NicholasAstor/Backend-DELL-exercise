@@ -7,5 +7,5 @@ public interface ILaboratorioService
 {
     public Task<IEnumerable<LaboratorioDto>> GetAllAsync();
     public Task<LaboratorioDto?> GetByIdAsync(long id);
-    public Task<Laboratorio> UpdateAsync(long id, LaboratorioDto dto);
+    public Task<LaboratorioDto> UpdateAsync(long id, LaboratorioDto dto);
 }
