@@ -10,6 +10,8 @@ public class Sala
     [Required]
     public int Numero {get; set;}
     
+    public int QtdLugares {get; set;}
+    
     [Required]
     public bool TemProjetor {get; set;}
 }
