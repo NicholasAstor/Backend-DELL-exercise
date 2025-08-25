@@ -1,12 +1,20 @@
+using System.Globalization;
 using backend.Models;
 using backend.Models.Dto;
 using backend.Repository;
+using backend.Repository.Interface;
 using backend.Service.Interface;
 
 namespace backend.Service;
 
-public class LaboratorioService(LaboratorioRepository _repository) : ILaboratorioService
+public class LaboratorioService : ILaboratorioService
 {
+    private readonly ILaboratorioRepository _repository;
+
+    public LaboratorioService(ILaboratorioRepository repo)
+    {
+        _repository = repo;
+    }
     public async Task<IEnumerable<LaboratorioDto>> GetAllAsync()
     {
         var laboratorios = await _repository.GetAllAsync();
@@ -19,11 +27,18 @@ public class LaboratorioService(LaboratorioRepository _repository) : ILaboratori
     public async Task<LaboratorioDto?> GetByIdAsync(long id)
     {
         var laboratorio = await _repository.GetByIdAsync(id);
-        
-            var result = new LaboratorioDto(laboratorio.Nome, laboratorio.QtdComputadores, laboratorio.Descricao);
-            return result;
+
+        var result = new LaboratorioDto(laboratorio.Nome, laboratorio.QtdComputadores, laboratorio.Descricao);
+
+        return result;
     }
 
-    public async Task<Laboratorio> UpdateAsync(long id, LaboratorioDto dto) => await
-        _repository.UpdateAsync(id, dto.Nome, dto.QtdComputadores, dto.Descricao);
+    public async Task<LaboratorioDto> UpdateAsync(long id, LaboratorioDto dto)
+    {
+        var updatedLab = await _repository.UpdateAsync(id, dto.Nome, dto.QtdComputadores, dto.Descricao);
+
+        var result = new LaboratorioDto(updatedLab.Nome, updatedLab.QtdComputadores, updatedLab.Descricao);
+
+        return result;
+    }
 }

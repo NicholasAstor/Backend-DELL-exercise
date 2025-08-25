@@ -5,8 +5,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace backend.Repository;
 
-public class LaboratorioRepository(BackendDbContext _context) : ILaboratorioRepository
+public class LaboratorioRepository : ILaboratorioRepository
 {
+    private readonly BackendDbContext _context;
+    public LaboratorioRepository(BackendDbContext context)
+    {
+        _context = context;
+    }
     public async Task<IEnumerable<Laboratorio>> GetAllAsync() => await _context.Laboratorios
     .OrderBy(n => n.IdLaboratorio)
     .ToListAsync();

@@ -1,12 +1,20 @@
 using backend.Models;
 using backend.Models.Dto;
 using backend.Repository;
+using backend.Repository.Interface;
 using backend.Service.Interface;
 
 namespace backend.Service;
 
-public class NotebookService (NotebookRepository _repository) : INotebookService
+public class NotebookService : INotebookService
 {
+
+    private readonly INotebookRepository _repository;
+
+    public NotebookService(INotebookRepository repo)
+    {
+        _repository = repo;
+    }
     public async Task<IEnumerable<NotebookDto>> GetAllAsync()
     {
         var notebooks = await _repository.GetAllAsync();
@@ -14,7 +22,7 @@ public class NotebookService (NotebookRepository _repository) : INotebookService
         var result = notebooks
             .Select(n => new NotebookDto
                 (n.NumeroPatrimonio, n.DataAquisicao, n.Descricao)).ToList();
-        
+
         return result;
     }
 

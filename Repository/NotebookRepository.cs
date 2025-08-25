@@ -5,8 +5,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace backend.Repository;
 
-public class NotebookRepository(BackendDbContext _context) : INotebookRepository
+public class NotebookRepository : INotebookRepository
 {
+    private readonly BackendDbContext _context;
+
+    public NotebookRepository(BackendDbContext context)
+    {
+        _context = context;
+    }
+
     public async Task<IEnumerable<Notebook>> GetAllAsync() => await _context.Notebooks
         .OrderBy(n => n.IdNotebook)
         .ToListAsync();

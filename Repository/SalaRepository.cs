@@ -5,8 +5,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace backend.Repository;
 
-public class SalaRepository(BackendDbContext _context) : ISalaRepository
+public class SalaRepository : ISalaRepository
 {
+    private readonly BackendDbContext _context;
+
+    public SalaRepository(BackendDbContext context)
+    {
+        _context = context;
+    }
     public async Task<IEnumerable<Sala>> GetAllAsync() => await _context.Salas
     .OrderBy(n => n.IdSala)
     .ToListAsync();
