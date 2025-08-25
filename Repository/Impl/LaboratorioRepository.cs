@@ -1,6 +1,6 @@
 using backend.Data;
-using backend.Dto.Laboratorio;
 using backend.Models;
+using backend.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.Repository.Impl;
@@ -20,16 +20,16 @@ public class LaboratorioRepository(BackendDbContext context) : ILaboratorioRepos
             .FirstOrDefaultAsync(s => s.IdLaboratorio == id);
     }
 
-    public async Task<Laboratorio> UpdateAsync(long id, LaboratorioDto dto)
+    public async Task<Laboratorio> UpdateAsync(long id, string nome, int qtdComputadores, string descricao)
     {
         var lab = await context.Laboratorios.FirstOrDefaultAsync(l => l.IdLaboratorio == id);
         if (lab == null)
             throw new ArgumentNullException($"Laboratorio com ID {id} não foi encontrado");
         
-        lab.Nome = dto.Nome;
-        lab.QtdComputadores = dto.QtdComputadores;
-        lab.Descricao = dto.Descricao;
-
+        lab.Nome = nome;
+        lab.Descricao = descricao;
+        lab.QtdComputadores = qtdComputadores;
+        
         await context.SaveChangesAsync();
         return lab;
     }

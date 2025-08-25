@@ -1,12 +1,10 @@
-using backend.Dto.Laboratorio;
-using backend.Dto.Sala;
 using backend.Models;
 
-namespace backend.Repository;
+namespace backend.Repository.Interface;
 
 public interface ILaboratorioRepository
 {
     public Task<List<Laboratorio>> GetAllAsync();
     public Task<Laboratorio?> GetByIdAsync(long id);
-    public Task<Laboratorio> UpdateAsync(long id, LaboratorioDto dto);
+    public Task<Laboratorio> UpdateAsync(long id, string nome, int qtdComputadores, string descricao);
 }

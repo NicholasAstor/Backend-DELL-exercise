@@ -1,11 +1,10 @@
-using backend.Dto.Sala;
 using backend.Models;
 
-namespace backend.Repository;
+namespace backend.Repository.Interface;
 
 public interface ISalaRepository
 {
     public Task<List<Sala>> GetAllAsync();
     public Task<Sala?> GetByIdAsync(long id);
-    public Task<Sala> UpdateAsync(long id,SalaDto dto);
+    public Task<Sala> UpdateAsync(long id, int numero, int qtdLugares, bool temProjetor);
 }

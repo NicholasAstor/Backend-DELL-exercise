@@ -1,6 +1,6 @@
 using backend.Data;
-using backend.Dto.Sala;
 using backend.Models;
+using backend.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.Repository.Impl;
@@ -20,18 +20,18 @@ public class SalaRepository(BackendDbContext context) : ISalaRepository
             .FirstOrDefaultAsync(s => s.IdSala == id);
     }
 
-    public async Task<Sala> UpdateAsync(long id, SalaDto dto)
+    public async Task<Sala> UpdateAsync(long id, int numero, int qtdLugares, bool temProjetor)
     {
         var sala = await context.Salas.FirstOrDefaultAsync(s => s.IdSala == id);
         if (sala == null)
             throw new ArgumentNullException($"Sala com ID {id} não foi encontrada");
-        
-        sala.Numero = dto.Numero;
-        sala.QtdLugares = dto.QtdLugares;
-        sala.TemProjetor = dto.TemProjetor;
+        sala.Numero = numero;
+        sala.QtdLugares = qtdLugares;
+        sala.TemProjetor = temProjetor;
         
         await context.SaveChangesAsync();
-
+        
         return sala;
     }
+    
 }
