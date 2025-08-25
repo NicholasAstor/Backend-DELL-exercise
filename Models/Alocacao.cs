@@ -12,6 +12,9 @@ public class Alocacao
     public long IdFuncionario {get; set;}
     
     [Required]
+    public Funcionario Funcionario {get; set;}
+    
+    [Required]
     public long IdRecurso {get; set;}
     
     [Required]
