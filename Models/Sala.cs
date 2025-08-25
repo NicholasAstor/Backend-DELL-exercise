@@ -10,6 +10,7 @@ public class Sala
     [Required]
     public int Numero {get; set;}
     
+    [Required]
     public int QtdLugares {get; set;}
     
     [Required]
