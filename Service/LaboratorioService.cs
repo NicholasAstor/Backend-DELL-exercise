@@ -33,12 +33,8 @@ public class LaboratorioService : ILaboratorioService
         return result;
     }
 
-    public async Task<LaboratorioDto> UpdateAsync(long id, LaboratorioDto dto)
+    public async Task UpdateAsync(long id, LaboratorioDto dto)
     {
-        var updatedLab = await _repository.UpdateAsync(id, dto.Nome, dto.QtdComputadores, dto.Descricao);
-
-        var result = new LaboratorioDto(updatedLab.Nome, updatedLab.QtdComputadores, updatedLab.Descricao);
-
-        return result;
+        await _repository.UpdateAsync(id, dto.Nome, dto.QtdComputadores, dto.Descricao);
     }
 }
