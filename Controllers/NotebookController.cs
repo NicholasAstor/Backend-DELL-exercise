@@ -12,14 +12,14 @@ public class NotebookController : Controller
     public NotebookController(INotebookService service) => _service = service;
 
     [HttpPost]
-    public async Task<ActionResult> Create([FromBody]NotebookDto dto)
+    public async Task<ActionResult> Create([FromBody]CreateNotebookDto dto)
     {
         await _service.AddAsync(dto);
         return Created();
     }
         
     
-    [HttpGet]
+    [HttpGet("{id}")]
     public async Task<ActionResult<NotebookDto>> GetById(long id)
     {
         var notebook = await _service.GetByIdAsync(id);
@@ -47,29 +47,16 @@ public class NotebookController : Controller
     }
 
     [HttpPut("{id}")]
-    public async Task<ActionResult> Update(long id, [FromBody] NotebookDto dto)
+    public async Task<ActionResult> Update(long id, [FromBody]CreateNotebookDto dto)
     {
-        var note = await _service.GetByIdAsync(id);
-
-        if (note == null)
-        {
-            return NotFound("Não foi possível atualizar");
-        }
-
-        return Ok(note);
+        await _service.UpdateAsync(id, dto);
+        return Created();
     }
 
     [HttpDelete("{id}")]
     public async Task<ActionResult> Delete(long id)
     {
-        var notebook = await _service.GetByIdAsync(id);
-
-        if (notebook == null)
-        {
-            return NotFound("Não foi possível deletar");
-        }
-        
         await _service.DeleteAsync(id);
-        return NoContent();
+        return Created();
     }
 }
