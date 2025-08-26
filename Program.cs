@@ -17,11 +17,13 @@ public class Program
         builder.Services.AddScoped<Repository.Interface.ILaboratorioRepository, Repository.LaboratorioRepository>();
         builder.Services.AddScoped<Repository.Interface.ISalaRepository, Repository.SalaRepository>();
         builder.Services.AddScoped<Repository.Interface.IFuncionarioRepository, Repository.FuncionarioRepository>();
+        builder.Services.AddScoped<Repository.Interface.INotebookRepository, Repository.NotebookRepository>();
 
         //Services
         builder.Services.AddScoped<Service.Interface.ILaboratorioService, Service.LaboratorioService>();
         builder.Services.AddScoped<Service.Interface.ISalaService, Service.SalaService>();
         builder.Services.AddScoped<Service.Interface.IFuncionarioService, Service.FuncionarioService>();
+        builder.Services.AddScoped<Service.Interface.INotebookService, Service.NotebookService>();
 
         builder.Services.AddControllers();
         // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
