@@ -59,4 +59,10 @@ public class NotebookService : INotebookService
     {
         await _repository.DeleteAsync(id);
     }
+    
+    public async Task<int> CountAvailableAsync(DateTime data)
+    {
+        var totalNotes = await _repository.CountAvailableAsync(data);
+        return totalNotes;
+    }
 }

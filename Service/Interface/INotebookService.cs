@@ -10,4 +10,6 @@ public interface INotebookService
     Task<NotebookDto> AddAsync(NotebookDto dto);
     Task<Notebook> UpdateAsync(long id,Notebook dto);
     Task DeleteAsync(long id);
+    
+    Task<int> CountAvailableAsync(DateTime data);
 }

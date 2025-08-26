@@ -32,4 +32,10 @@ public class SalaService : ISalaService
     }
 
     public async Task<Sala> UpdateAsync(long id, SalaDto dto) => await _repository.UpdateAsync(id, dto.Numero, dto.QtdLugares, dto.TemProjetor);
+    
+    public async Task<int> CountAvailableAsync(DateTime data)
+    {
+        var totalNotes = await _repository.CountAvailableAsync(data);
+        return totalNotes;
+    }
 }
