@@ -8,4 +8,6 @@ public interface ILaboratorioService
     Task<IEnumerable<LaboratorioDto>> GetAllAsync();
     Task<LaboratorioDto?> GetByIdAsync(long id);
     Task UpdateAsync(long id, LaboratorioDto dto);
+    
+    Task<int> CountAvailableAsync(DateTime data);
 }

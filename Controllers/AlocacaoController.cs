@@ -16,7 +16,7 @@ namespace backend.Controllers
         [HttpPost]
         public async Task<ActionResult> Create([FromBody] CreateAlocacaoDto alocacao)
         {
-            await _service.createAlocacao(alocacao);
+            await _service.CreateAlocacao(alocacao);
             return Created();
         }
     }

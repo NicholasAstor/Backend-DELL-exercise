@@ -4,6 +4,6 @@ namespace backend.Service.Interface
 {
     public interface IAlocacaoService
     {
-        Task createAlocacao(CreateAlocacaoDto alocacaoDto);
+        Task CreateAlocacao(CreateAlocacaoDto alocacaoDto);
     }
 }

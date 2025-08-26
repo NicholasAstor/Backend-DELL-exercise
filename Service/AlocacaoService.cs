@@ -10,6 +10,6 @@ namespace backend.Service
 
         public AlocacaoService(IAlocacaoRepository repo) => _repository = repo;
 
-        public async Task createAlocacao(CreateAlocacaoDto alocacaoDto) => await _repository.createAlocacao(alocacaoDto.IdRecurso, alocacaoDto.IdFuncionario, alocacaoDto.TipoRecurso, alocacaoDto.DataReserva);
+        public async Task CreateAlocacao(CreateAlocacaoDto alocacaoDto) => await _repository.createAlocacao(alocacaoDto.IdRecurso, alocacaoDto.IdFuncionario, alocacaoDto.TipoRecurso, alocacaoDto.DataReserva);
     }
 }

@@ -1,6 +1,4 @@
-using backend.Models;
 using backend.Models.Dto;
-using backend.Repository;
 using backend.Repository.Interface;
 using backend.Service.Interface;
 
@@ -35,4 +33,10 @@ public class SalaService : ISalaService
     {
       await _repository.UpdateAsync(id, dto.Numero, dto.QtdLugares, dto.TemProjetor);  
     } 
+    
+    public async Task<int> CountAvailableAsync(DateTime data)
+    {
+        var totalSalas = await _repository.CountAvailableAsync(data);
+        return totalSalas;
+    }
 }

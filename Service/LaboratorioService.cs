@@ -40,7 +40,7 @@ public class LaboratorioService : ILaboratorioService
 
     public async Task<int> CountAvailableAsync(DateTime data)
     {
-        var totalNotes = await _repository.CountAvailableAsync(data);
-        return totalNotes;
+        var totalLabs = await _repository.CountAvailableAsync(data);
+        return totalLabs;
     }
 }
