@@ -30,39 +30,25 @@ public class NotebookService : INotebookService
     {
         var n = await _repository.GetByIdAsync(id);
 
-   
-            var result = new NotebookDto
-                (n.NumeroPatrimonio, n.DataAquisicao, n.Descricao);
+        var result = new NotebookDto
+            (n.NumeroPatrimonio, n.DataAquisicao, n.Descricao);
             
         return result;
     }
 
-    public async Task<NotebookDto> AddAsync(NotebookDto dto)
+    public async Task AddAsync(CreateNotebookDto dto)
     {
-        var entity = new Notebook
-        {
+        var entity = new Notebook{
             NumeroPatrimonio = dto.NumeroPatrimonio,
             DataAquisicao = dto.DataAquisicao,
             Descricao = dto.Descricao
-        };
+            };
 
-        var updated = await _repository.AddAsync(entity);
-
-        return new NotebookDto(updated.NumeroPatrimonio, updated.DataAquisicao, updated.Descricao);
+        await _repository.AddAsync(entity);
     }
 
-    public async Task<Notebook> UpdateAsync(long id, Notebook dto) => await
+    public async Task UpdateAsync(long id, CreateNotebookDto dto) => await
         _repository.UpdateAsync(id, dto.NumeroPatrimonio, dto.DataAquisicao, dto.Descricao);
- 
 
-    public async Task DeleteAsync(long id)
-    {
-        await _repository.DeleteAsync(id);
-    }
-    
-    public async Task<int> CountAvailableAsync(DateTime data)
-    {
-        var totalNotes = await _repository.CountAvailableAsync(data);
-        return totalNotes;
-    }
+    public async Task DeleteAsync(long id) => await _repository.DeleteAsync(id);
 }

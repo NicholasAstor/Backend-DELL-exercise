@@ -31,11 +31,8 @@ public class SalaService : ISalaService
         return result;
     }
 
-    public async Task<Sala> UpdateAsync(long id, SalaDto dto) => await _repository.UpdateAsync(id, dto.Numero, dto.QtdLugares, dto.TemProjetor);
-    
-    public async Task<int> CountAvailableAsync(DateTime data)
+    public async Task UpdateAsync(long id, SalaDto dto)
     {
-        var totalNotes = await _repository.CountAvailableAsync(data);
-        return totalNotes;
-    }
+      await _repository.UpdateAsync(id, dto.Numero, dto.QtdLugares, dto.TemProjetor);  
+    } 
 }

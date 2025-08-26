@@ -7,8 +7,8 @@ public interface INotebookService
 {
     Task<IEnumerable<NotebookDto>>  GetAllAsync();
     Task<NotebookDto?> GetByIdAsync(long id);
-    Task<NotebookDto> AddAsync(NotebookDto dto);
-    Task<Notebook> UpdateAsync(long id,Notebook dto);
+    Task AddAsync(CreateNotebookDto dto);
+    Task UpdateAsync(long id,CreateNotebookDto dto);
     Task DeleteAsync(long id);
     
     Task<int> CountAvailableAsync(DateTime data);

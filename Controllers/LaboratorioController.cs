@@ -41,16 +41,10 @@ namespace backend.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<LaboratorioDto>> Update(long id, [FromBody] LaboratorioDto laboratorio)
+        public async Task<ActionResult> Update(long id, [FromBody] LaboratorioDto laboratorio)
         {
-            var lab = await _service.UpdateAsync(id, laboratorio);
-
-            if (lab == null)
-            {
-                return NotFound("Não foi possível atualizar");
-            }
-
-            return Ok(lab);
+            await _service.UpdateAsync(id, laboratorio);
+            return Created();
         }
     }
 }

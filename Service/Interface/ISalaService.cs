@@ -7,7 +7,5 @@ public interface ISalaService
 {
     Task<IEnumerable<SalaDto>> GetAllAsync();
     Task<SalaDto?> GetByIdAsync(long id);
-    Task<Sala> UpdateAsync(long id, SalaDto dto);
-    
-    Task<int> CountAvailableAsync(DateTime data);
+    Task UpdateAsync(long id, SalaDto dto);
 }

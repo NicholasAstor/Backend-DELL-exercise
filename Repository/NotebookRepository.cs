@@ -24,7 +24,12 @@ public class NotebookRepository : INotebookRepository
 
     public async Task<Notebook> AddAsync(Notebook notebook)
     {
-        _context.Notebooks.Add(notebook);
+        if (notebook == null)
+        {
+            throw new Exception("Erro ao criar notebook");
+        }
+
+        await _context.Notebooks.AddAsync(notebook);
         await _context.SaveChangesAsync();
         return notebook;
     }
