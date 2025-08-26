@@ -7,12 +7,10 @@ public class Alocacao
 {
     [Key]
     public long IdAlocacao {get; set;}
-    
+
     [Required]
-    public long IdFuncionario {get; set;}
-    
-    [Required]
-    public Funcionario Funcionario {get; set;}
+    public long FuncionarioId{ get; set; }
+    public Funcionario Funcionario { get; set; }
     
     [Required]
     public long IdRecurso {get; set;}
@@ -25,6 +23,4 @@ public class Alocacao
     
     [Required]
     public DateTime DataCriacao  {get; set;}
-    
-    
 }
