@@ -4,9 +4,9 @@ namespace backend.Repository.Interface;
 
 public interface INotebookRepository
 {
-    public Task<IEnumerable<Notebook>> GetAllAsync();
-    public Task<Notebook?> GetByIdAsync(long id);
-    public Task<Notebook> AddAsync(Notebook notebook);
-    public Task<Notebook> UpdateAsync(long id, int numeroPatrimonio, DateTime dataAquisicao, string descricao);
-    public Task DeleteAsync(long id);
+    Task<IEnumerable<Notebook>> GetAllAsync();
+    Task<Notebook?> GetByIdAsync(long id);
+    Task<Notebook> AddAsync(Notebook notebook);
+    Task<Notebook> UpdateAsync(long id, int numeroPatrimonio, DateTime dataAquisicao, string descricao);
+    Task DeleteAsync(long id);
 }

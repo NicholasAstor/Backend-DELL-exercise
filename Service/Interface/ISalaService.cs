@@ -5,7 +5,7 @@ namespace backend.Service.Interface;
 
 public interface ISalaService
 {
-    public Task<IEnumerable<SalaDto>> GetAllAsync();
-    public Task<SalaDto?> GetByIdAsync(long id);
-    public Task<Sala> UpdateAsync(long id, SalaDto dto);
+    Task<IEnumerable<SalaDto>> GetAllAsync();
+    Task<SalaDto?> GetByIdAsync(long id);
+    Task<Sala> UpdateAsync(long id, SalaDto dto);
 }
