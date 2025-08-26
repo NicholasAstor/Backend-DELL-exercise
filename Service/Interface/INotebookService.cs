@@ -5,9 +5,9 @@ namespace backend.Service.Interface;
 
 public interface INotebookService
 {
-    public Task<IEnumerable<NotebookDto>>  GetAllAsync();
-    public Task<NotebookDto?> GetByIdAsync(long id);
-    public Task<NotebookDto> AddAsync(NotebookDto dto);
-    public Task<Notebook> UpdateAsync(long id,Notebook dto);
-    public Task DeleteAsync(long id);
+    Task<IEnumerable<NotebookDto>>  GetAllAsync();
+    Task<NotebookDto?> GetByIdAsync(long id);
+    Task<NotebookDto> AddAsync(NotebookDto dto);
+    Task<Notebook> UpdateAsync(long id,Notebook dto);
+    Task DeleteAsync(long id);
 }
