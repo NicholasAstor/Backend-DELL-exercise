@@ -1,4 +1,6 @@
+using backend.Models;
 using backend.Models.Dto;
+using backend.Models.Enums;
 using backend.Service.Interface;
 using Microsoft.AspNetCore.Mvc;
 
@@ -43,5 +45,40 @@ public class HomeController : Controller
             labsLivres);
         
         return Ok(dto);
+    }
+
+    [HttpGet("tabela")]
+    public async Task<ActionResult<PagedModel<DashboardDto>>> GetInfo([FromQuery] int pagina = 1, [FromQuery] int tamanho = 10)
+    {
+        if (pagina < 1)
+        {
+            return BadRequest("Página inválida");
+        }
+        
+        var notebooks = await _notebookService.GetAllAsync();
+        var salas =  await _salaService.GetAllAsync();
+        var labs = await _laboratorioService.GetAllAsync();
+
+        var info = new List<DashboardItemDto>(notebooks.Count() + salas.Count() + labs.Count());
+        info.AddRange(notebooks.Select(n => new DashboardItemDto(TipoRecurso.Notebook, pagina, info)));
+        info.AddRange(salas.Select(s => new DashboardItemDto(TipoRecurso.Sala, pagina, info)));
+        info.AddRange(labs.Select(l => new DashboardItemDto(TipoRecurso.Laboratorio, pagina, info)));
+        
+        var numItems = info.Count();
+        var numPaginas = (int)Math.Ceiling(numItems / (double)tamanho);
+        var skip = (pagina - 1) * tamanho;
+        
+        var items = skip >= numItems ? new List<DashboardItemDto>() : info.Skip(skip).Take(tamanho).ToList();
+
+        var result = new PagedModel<DashboardItemDto>(
+            pagina,
+            tamanho,
+            numItems,
+            numPaginas,
+            items
+        );
+        
+        return Ok(result);
+
     }
 }
