@@ -6,6 +6,7 @@ namespace backend.Repository.Interface
     public interface IAlocacaoRepository
     {
         Task createAlocacao(long idRecurso, long idFuncionario, TipoRecurso tipoRecurso, DateTime reserva);
-        Task<IEnumerable<Alocacao>> GetAllAsync();
+        Task<IEnumerable<RecursoDto>> GetAllAsync(DateTime? data = null);
+        Task<string> FilterAlocacoesByDiasDaSemanaMaisOcupados();
     }
 }

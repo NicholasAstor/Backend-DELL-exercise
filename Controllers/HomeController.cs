@@ -23,22 +23,19 @@ namespace backend.Controllers
             _serviceSala = service5;
         }
 
-        public async Task<ActionResult> Index()
+        [HttpGet("dias-mais-ocupados")]
+        public async Task<ActionResult> DiasMaisOcupados()
         {
-            var notebooks = await _serviceNotebook.GetAllAsync();
-            var laboratorios = await _serviceLaboratorio.GetAllAsync();
-            var salas = await _serviceSala.GetAllAsync();
-            var alocacoes = await _serviceAlocacao.GetAllAsync();
+            var alocacoes = await _serviceAlocacao.FilterAlocacoesByDiasMaisOcupados();
 
-            var viewModel = new HomeViewDto
-            {
-                Notebooks = notebooks,
-                Laboratorios = laboratorios,
-                Alocacoes = alocacoes,
-                Salas = salas
-            };
-
-            return Ok(viewModel);
+            return Ok(alocacoes);
+        }
+        
+        [HttpGet("recursos")]
+        public async Task<ActionResult> Recursos([FromQuery] DateTime? data)
+        {
+            var recursos = await _serviceAlocacao.GetAllAsync(data);
+            return Ok(recursos);
         }
     }
 }
