@@ -6,6 +6,7 @@ namespace backend.Service.Interface
     public interface IAlocacaoService
     {
         Task createAlocacao(CreateAlocacaoDto alocacaoDto);
-        Task<IEnumerable<Alocacao>> GetAllAsync();
+        Task<string> FilterAlocacoesByDiasMaisOcupados();
+        Task<IEnumerable<RecursoDto>> GetAllAsync(DateTime? data = null);
     }
 }
