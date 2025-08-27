@@ -1,3 +1,4 @@
+using backend.Models;
 using backend.Models.Dto;
 using backend.Repository.Interface;
 using backend.Service.Interface;
@@ -11,5 +12,6 @@ namespace backend.Service
         public AlocacaoService(IAlocacaoRepository repo) => _repository = repo;
 
         public async Task createAlocacao(CreateAlocacaoDto alocacaoDto) => await _repository.createAlocacao(alocacaoDto.IdRecurso, alocacaoDto.IdFuncionario, alocacaoDto.TipoRecurso, alocacaoDto.DataReserva);
+        public async Task<IEnumerable<Alocacao>> GetAllAsync() => await _repository.GetAllAsync();
     }
 }

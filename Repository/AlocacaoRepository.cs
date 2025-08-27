@@ -21,7 +21,7 @@ namespace backend.Repository
             {
                 throw new Exception("Erro ao criar alocação");
             }
-         
+
             var dataReserva = reserva.ToUniversalTime();
             var dataCriacao = DateTime.Now.ToUniversalTime();
             var alocacaoNova = new Alocacao
@@ -40,10 +40,12 @@ namespace backend.Repository
             if (alocacoes.Count != 0)
             {
                 throw new Exception("Já existe uma reserva para esse dia");
-            } 
-            
+            }
+
             await _context.Alocacoes.AddAsync(alocacaoNova);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<Alocacao>> GetAllAsync() => await _context.Alocacoes.Include(a => a.Funcionario).ToListAsync();
     }
 }
