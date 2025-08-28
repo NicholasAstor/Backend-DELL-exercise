@@ -34,6 +34,15 @@ public class Program
         builder.Services.AddSwaggerGen();
         builder.Services.AddOpenApi();
 
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("AllowFrontend",
+                p => p.WithOrigins("http://localhost:4200")
+                      .AllowAnyHeader()
+                      .AllowAnyMethod()
+            );
+        });
+
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
@@ -43,6 +52,8 @@ public class Program
             app.UseSwagger();
             app.UseSwaggerUI();
         }
+
+        app.UseCors("AllowFrontend");
 
         app.UseHttpsRedirection();
 

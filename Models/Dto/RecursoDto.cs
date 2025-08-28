@@ -4,5 +4,5 @@ public class RecursoDto
     public string Tipo { get; set; }
     public string NomeOuDescricao { get; set; }
     public bool Disponivel { get; set; }
-    public DateTime? DataReserva { get; set; }
+    public DateOnly? DataReserva { get; set; }
 }

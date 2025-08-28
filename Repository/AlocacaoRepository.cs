@@ -60,7 +60,12 @@ namespace backend.Repository
                 Tipo = "Notebook",
                 NomeOuDescricao = n.Descricao,
                 Disponivel = !_context.Alocacoes.Any(a => a.IdRecurso == n.IdNotebook && a.TipoRecurso == TipoRecurso.Notebook && a.DataReserva.Date == data.Value.Date),
-                DataReserva = _context.Alocacoes.Where(a => a.IdRecurso == n.IdNotebook && a.TipoRecurso == TipoRecurso.Notebook && a.DataReserva.Date == data.Value.Date).Select(a => (DateTime?)a.DataReserva).FirstOrDefault()
+                DataReserva = _context.Alocacoes
+                .Where(a => a.IdRecurso == n.IdNotebook
+                    && a.TipoRecurso == TipoRecurso.Notebook
+                    && a.DataReserva.Date == data.Value.Date)
+                    .Select(a => (DateTime?)a.DataReserva)
+                    .FirstOrDefault().ToDateOnly()
             }).ToListAsync());
 
             recursos.AddRange(await _context.Salas
@@ -70,7 +75,7 @@ namespace backend.Repository
                 Tipo = "Sala",
                 NomeOuDescricao = $"Sala {s.Numero} ({s.QtdLugares} lugares)",
                 Disponivel = !_context.Alocacoes.Any(a => a.IdRecurso == s.IdSala && a.TipoRecurso == TipoRecurso.Sala && a.DataReserva.Date == data.Value.Date),
-                DataReserva = _context.Alocacoes.Where(a => a.IdRecurso == s.IdSala && a.TipoRecurso == TipoRecurso.Sala && a.DataReserva.Date == data.Value.Date).Select(a => (DateTime?)a.DataReserva).FirstOrDefault()
+                DataReserva = _context.Alocacoes.Where(a => a.IdRecurso == s.IdSala && a.TipoRecurso == TipoRecurso.Sala && a.DataReserva.Date == data.Value.Date).Select(a => (DateTime?)a.DataReserva).FirstOrDefault().ToDateOnly()
             }).ToListAsync());
 
             recursos.AddRange(await _context.Laboratorios
@@ -80,7 +85,7 @@ namespace backend.Repository
                 Tipo = "Laboratório",
                 NomeOuDescricao = l.Nome,
                 Disponivel = !_context.Alocacoes.Any(a => a.IdRecurso == l.IdLaboratorio && a.TipoRecurso == TipoRecurso.Laboratorio && a.DataReserva.Date == data.Value.Date),
-                DataReserva = _context.Alocacoes.Where(a => a.IdRecurso == l.IdLaboratorio && a.TipoRecurso == TipoRecurso.Laboratorio && a.DataReserva.Date == data.Value.Date).Select(a => (DateTime?)a.DataReserva).FirstOrDefault()
+                DataReserva = _context.Alocacoes.Where(a => a.IdRecurso == l.IdLaboratorio && a.TipoRecurso == TipoRecurso.Laboratorio && a.DataReserva.Date == data.Value.Date).Select(a => (DateTime?)a.DataReserva).FirstOrDefault().ToDateOnly()
             }).ToListAsync());
 
             return recursos;
