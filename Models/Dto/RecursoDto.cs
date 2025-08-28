@@ -1,3 +1,5 @@
+namespace backend.Models.Dto;
+
 public class RecursoDto
 {
     public long Id { get; set; }

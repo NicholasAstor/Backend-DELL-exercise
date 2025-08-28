@@ -11,7 +11,7 @@ public class Notebook
     public int NumeroPatrimonio {get; set;}
     
     [Required]
-    public DateTime DataAquisicao {get; set;}
+    public DateOnly DataAquisicao {get; set;}
     
     [Required]
     public string Descricao {get; set;}

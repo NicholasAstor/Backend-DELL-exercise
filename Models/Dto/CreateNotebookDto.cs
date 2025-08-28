@@ -1,4 +1,4 @@
 namespace backend.Models.Dto
 {
-    public record CreateNotebookDto(int NumeroPatrimonio, DateTime DataAquisicao, string Descricao);
+    public record CreateNotebookDto(int NumeroPatrimonio, DateOnly DataAquisicao, string Descricao);
 }

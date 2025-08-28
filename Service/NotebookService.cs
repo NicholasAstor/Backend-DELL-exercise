@@ -38,6 +38,7 @@ public class NotebookService : INotebookService
 
     public async Task AddAsync(CreateNotebookDto dto)
     {
+
         var entity = new Notebook{
             NumeroPatrimonio = dto.NumeroPatrimonio,
             DataAquisicao = dto.DataAquisicao,

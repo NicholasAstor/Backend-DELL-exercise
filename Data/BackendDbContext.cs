@@ -19,10 +19,11 @@ namespace backend.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql()
-            .LogTo(Console.WriteLine, LogLevel.Information)
-            .EnableSensitiveDataLogging()
-            .EnableDetailedErrors();
+            optionsBuilder
+                .UseNpgsql()
+                .LogTo(Console.WriteLine, LogLevel.Information)
+                .EnableSensitiveDataLogging()
+                .EnableDetailedErrors();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -58,7 +59,7 @@ namespace backend.Data
                 f1 = new Funcionario { IdFuncionario = 1, Matricula = 100167, Nome = "Nicholas Navarro", Cargo = CargoFuncionario.Desenvolvedor, DataAdmissao = new DateTime(2025, 8, 20, 12, 0, 0).ToUniversalTime() },
                 f2 = new Funcionario { IdFuncionario = 2, Matricula = 100168, Nome = "Júlia Schivisnky", Cargo = CargoFuncionario.Desenvolvedor, DataAdmissao = new DateTime(2025, 8, 20, 12, 0, 0).ToUniversalTime() },
                 f3 = new Funcionario { IdFuncionario = 3, Matricula = 100169, Nome = "Ellen", Cargo = CargoFuncionario.Desenvolvedor, DataAdmissao = new DateTime(2025, 8, 20, 12, 0, 0).ToUniversalTime() },
-                f4 = new Funcionario { IdFuncionario = 4, Matricula = 100170, Nome = "Henrique Coralles", Cargo = CargoFuncionario.Desenvolvedor, DataAdmissao = new DateTime(2025, 8, 20, 12, 0, 0).ToUniversalTime() },
+                f4 = new Funcionario { IdFuncionario = 4, Matricula = 100170, Nome = "Henrique Corrales", Cargo = CargoFuncionario.Desenvolvedor, DataAdmissao = new DateTime(2025, 8, 20, 12, 0, 0).ToUniversalTime() },
                 f5 = new Funcionario { IdFuncionario = 5, Matricula = 101010, Nome = "MR Gabriel Velloso", Cargo = CargoFuncionario.Diretor, DataAdmissao = new DateTime(2025, 8, 20, 12, 0, 0).ToUniversalTime() }
             );
 
@@ -82,11 +83,11 @@ namespace backend.Data
 
             // Notebooks
             modelBuilder.Entity<Notebook>().HasData(
-                n1 = new Notebook { IdNotebook = 1, NumeroPatrimonio = 1001, DataAquisicao = new DateTime(2023, 8, 20, 12, 0, 0).ToUniversalTime(), Descricao = "Dell Inspiron i5" },
-                n2 = new Notebook { IdNotebook = 2, NumeroPatrimonio = 1002, DataAquisicao = new DateTime(2022, 8, 20, 12, 0, 0).ToUniversalTime(), Descricao = "HP Elitebook i7" },
-                n3 = new Notebook { IdNotebook = 3, NumeroPatrimonio = 1003, DataAquisicao = new DateTime(2024, 8, 20, 12, 0, 0).ToUniversalTime(), Descricao = "Lenovo Thinkpad i5" },
-                n4 = new Notebook { IdNotebook = 4, NumeroPatrimonio = 1004, DataAquisicao = new DateTime(2021, 8, 20, 12, 0, 0).ToUniversalTime(), Descricao = "Acer Aspire i3" },
-                n5 = new Notebook { IdNotebook = 5, NumeroPatrimonio = 1005, DataAquisicao = new DateTime(2019, 8, 20, 12, 0, 0).ToUniversalTime(), Descricao = "Macbook Air M1" }
+                n1 = new Notebook { IdNotebook = 1, NumeroPatrimonio = 1001, DataAquisicao = new DateOnly(2023, 8, 20), Descricao = "Dell Inspiron i5" },
+                n2 = new Notebook { IdNotebook = 2, NumeroPatrimonio = 1002, DataAquisicao = new DateOnly(2022, 8, 20), Descricao = "HP Elitebook i7" },
+                n3 = new Notebook { IdNotebook = 3, NumeroPatrimonio = 1003, DataAquisicao = new DateOnly(2024, 8, 20), Descricao = "Lenovo Thinkpad i5" },
+                n4 = new Notebook { IdNotebook = 4, NumeroPatrimonio = 1004, DataAquisicao = new DateOnly(2021, 8, 20), Descricao = "Acer Aspire i3" },
+                n5 = new Notebook { IdNotebook = 5, NumeroPatrimonio = 1005, DataAquisicao = new DateOnly(2019, 8, 20), Descricao = "Macbook Air M1" }
             );
 
             // Alocações

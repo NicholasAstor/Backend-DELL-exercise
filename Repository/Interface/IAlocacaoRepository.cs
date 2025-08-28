@@ -1,4 +1,5 @@
 using backend.Models;
+using backend.Models.Dto;
 using backend.Models.Enums;
 
 namespace backend.Repository.Interface

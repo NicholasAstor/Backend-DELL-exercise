@@ -33,7 +33,7 @@ public class NotebookRepository : INotebookRepository
         return notebook;
     }
 
-    public async Task<Notebook> UpdateAsync(long id, int numeroPatrimonio, DateTime dataAquisicao, string descricao)
+    public async Task<Notebook> UpdateAsync(long id, int numeroPatrimonio, DateOnly dataAquisicao, string descricao)
     {
         var note = await _context.Notebooks.FirstOrDefaultAsync(n => n.IdNotebook == id);
 

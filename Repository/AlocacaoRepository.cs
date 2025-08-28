@@ -1,6 +1,7 @@
 using System.Runtime.InteropServices;
 using backend.Data;
 using backend.Models;
+using backend.Models.Dto;
 using backend.Models.Enums;
 using backend.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
