@@ -33,6 +33,14 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
         builder.Services.AddOpenApi();
+        
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("AllowDev",
+                p => p.WithOrigins("http://localhost:4200") 
+                    .AllowAnyHeader()
+                    .AllowAnyMethod());
+        });
 
         var app = builder.Build();
 
@@ -44,11 +52,9 @@ public class Program
             app.UseSwaggerUI();
         }
 
+        app.UseCors("AllowDev");
         app.UseHttpsRedirection();
-
         app.UseAuthorization();
-
-
         app.MapControllers();
 
         app.Run();
