@@ -32,9 +32,9 @@ namespace backend.Controllers
         }
         
         [HttpGet("recursos")]
-        public async Task<ActionResult> Recursos([FromQuery] DateTime? data)
+        public async Task<ActionResult> Recursos([FromQuery] DateTime? dataInicio, [FromQuery] DateTime? dataFim)
         {
-            var recursos = await _serviceAlocacao.GetAllAsync(data);
+            var recursos = await _serviceAlocacao.GetAllAsync(dataInicio, dataFim);
             return Ok(recursos);
         }
     }

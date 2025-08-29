@@ -17,7 +17,7 @@ namespace backend.Service
         {
             var funcionarios = await _repository.GetAllFuncionariosAsync();
 
-            var result = funcionarios.Select(f => new FuncionarioDto(f.Nome, f.Cargo));
+            var result = funcionarios.Select(f => new FuncionarioDto(f.Nome, f.Matricula));
 
             return result;
         }

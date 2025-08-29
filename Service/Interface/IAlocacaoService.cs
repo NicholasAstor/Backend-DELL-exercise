@@ -7,6 +7,6 @@ namespace backend.Service.Interface
     {
         Task createAlocacao(CreateAlocacaoDto alocacaoDto);
         Task<string> FilterAlocacoesByDiasMaisOcupados();
-        Task<IEnumerable<RecursoDto>> GetAllAsync(DateTime? data = null);
+        Task<IEnumerable<RecursoDto>> GetAllAsync(DateTime? dataInicio = null, DateTime? dataFim = null);
     }
 }
