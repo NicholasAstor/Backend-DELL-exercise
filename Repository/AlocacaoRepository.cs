@@ -47,46 +47,98 @@ namespace backend.Repository
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<RecursoDto>> GetAllAsync(DateTime? data = null)
+        public async Task<IEnumerable<RecursoDto>> GetAllAsync(DateTime? dataInicio = null, DateTime? dataFim = null)
         {
-            data ??= DateTime.Today.ToUniversalTime();
+            var inicio = DateTime.SpecifyKind(
+                (dataInicio ?? DateTime.Today), 
+                DateTimeKind.Utc
+            ).Date;
+
+            var fim = DateTime.SpecifyKind(
+                (dataFim ?? inicio), 
+                DateTimeKind.Utc
+            ).Date;
+
 
             var recursos = new List<RecursoDto>();
 
+            // ----------- NOTEBOOKS -----------
             recursos.AddRange(await _context.Notebooks
-            .Select(n => new RecursoDto
-            {
-                Id = n.IdNotebook,
-                Tipo = "Notebook",
-                NomeOuDescricao = n.Descricao,
-                Disponivel = !_context.Alocacoes.Any(a => a.IdRecurso == n.IdNotebook && a.TipoRecurso == TipoRecurso.Notebook && a.DataReserva.Date == data.Value.Date),
-                DataReserva = _context.Alocacoes
-                .Where(a => a.IdRecurso == n.IdNotebook
-                    && a.TipoRecurso == TipoRecurso.Notebook
-                    && a.DataReserva.Date == data.Value.Date)
-                    .Select(a => (DateTime?)a.DataReserva)
-                    .FirstOrDefault().ToDateOnly()
-            }).ToListAsync());
+                .Select(n => new RecursoDto
+                {
+                    Id = n.IdNotebook,
+                    Tipo = "Notebook",
+                    NomeOuDescricao = n.Descricao,
+
+                    Disponivel = !_context.Alocacoes.Any(a =>
+                        a.IdRecurso == n.IdNotebook &&
+                        a.TipoRecurso == TipoRecurso.Notebook &&
+                        a.DataReserva.Date >= inicio &&
+                        a.DataReserva.Date <= fim
+                    ),
+
+                    DataReserva = _context.Alocacoes
+                        .Where(a =>
+                            a.IdRecurso == n.IdNotebook &&
+                            a.TipoRecurso == TipoRecurso.Notebook &&
+                            a.DataReserva.Date >= inicio &&
+                            a.DataReserva.Date <= fim
+                        )
+                        .Select(a => (DateTime?)a.DataReserva)
+                        .OrderBy(d => d)
+                        .FirstOrDefault()
+                        .ToDateOnly()
+                }).ToListAsync());
 
             recursos.AddRange(await _context.Salas
-            .Select(s => new RecursoDto
-            {
-                Id = s.IdSala,
-                Tipo = "Sala",
-                NomeOuDescricao = $"Sala {s.Numero} ({s.QtdLugares} lugares)",
-                Disponivel = !_context.Alocacoes.Any(a => a.IdRecurso == s.IdSala && a.TipoRecurso == TipoRecurso.Sala && a.DataReserva.Date == data.Value.Date),
-                DataReserva = _context.Alocacoes.Where(a => a.IdRecurso == s.IdSala && a.TipoRecurso == TipoRecurso.Sala && a.DataReserva.Date == data.Value.Date).Select(a => (DateTime?)a.DataReserva).FirstOrDefault().ToDateOnly()
-            }).ToListAsync());
+                .Select(s => new RecursoDto
+                {
+                    Id = s.IdSala,
+                    Tipo = "Sala",
+                    NomeOuDescricao = $"Sala {s.Numero} ({s.QtdLugares} lugares)",
+                    Disponivel = !_context.Alocacoes.Any(a =>
+                        a.IdRecurso == s.IdSala &&
+                        a.TipoRecurso == TipoRecurso.Sala &&
+                        a.DataReserva.Date >= inicio &&
+                        a.DataReserva.Date <= fim
+                    ),
+                    DataReserva = _context.Alocacoes
+                        .Where(a =>
+                            a.IdRecurso == s.IdSala &&
+                            a.TipoRecurso == TipoRecurso.Sala &&
+                            a.DataReserva.Date >= inicio &&
+                            a.DataReserva.Date <= fim
+                        )
+                        .Select(a => (DateTime?)a.DataReserva)
+                        .OrderBy(d => d)
+                        .FirstOrDefault()
+                        .ToDateOnly()
+                }).ToListAsync());
 
             recursos.AddRange(await _context.Laboratorios
-            .Select(l => new RecursoDto
-            {
-                Id = l.IdLaboratorio,
-                Tipo = "Laboratório",
-                NomeOuDescricao = l.Nome,
-                Disponivel = !_context.Alocacoes.Any(a => a.IdRecurso == l.IdLaboratorio && a.TipoRecurso == TipoRecurso.Laboratorio && a.DataReserva.Date == data.Value.Date),
-                DataReserva = _context.Alocacoes.Where(a => a.IdRecurso == l.IdLaboratorio && a.TipoRecurso == TipoRecurso.Laboratorio && a.DataReserva.Date == data.Value.Date).Select(a => (DateTime?)a.DataReserva).FirstOrDefault().ToDateOnly()
-            }).ToListAsync());
+                .Select(l => new RecursoDto
+                {
+                    Id = l.IdLaboratorio,
+                    Tipo = "Laboratório",
+                    NomeOuDescricao = l.Nome,
+                    Disponivel = !_context.Alocacoes.Any(a =>
+                        a.IdRecurso == l.IdLaboratorio &&
+                        a.TipoRecurso == TipoRecurso.Laboratorio &&
+                        a.DataReserva.Date >= inicio &&
+                        a.DataReserva.Date <= fim
+                    ),
+                    DataReserva = _context.Alocacoes
+                        .Where(a =>
+                            a.IdRecurso == l.IdLaboratorio &&
+                            a.TipoRecurso == TipoRecurso.Laboratorio &&
+                            a.DataReserva.Date >= inicio &&
+                            a.DataReserva.Date <= fim
+                        )
+                        .Select(a => (DateTime?)a.DataReserva)
+                        .OrderBy(d => d)
+                        .FirstOrDefault()
+                        .ToDateOnly()
+                }).ToListAsync());
 
             return recursos;
         }
