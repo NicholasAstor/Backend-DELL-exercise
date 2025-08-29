@@ -1,5 +1,6 @@
 using backend.Data;
 using backend.Models;
+using backend.Models.Enums;
 using backend.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
 
@@ -34,5 +35,19 @@ public class LaboratorioRepository : ILaboratorioRepository
         
         await _context.SaveChangesAsync();
         return lab;
+    }
+    
+    public async Task<int> CountAvailableAsync(int total, DateTime data)
+    {
+        var dataAlvo = data.Date;
+        
+        
+        var salasOcupadas = await _context.Alocacoes
+            .Where(a => a.TipoRecurso == TipoRecurso.Laboratorio && a.DataReserva.Date == dataAlvo)
+            .Select(a => a.IdRecurso)
+            .Distinct()
+            .CountAsync();
+
+        return total - salasOcupadas;
     }
 }

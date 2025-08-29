@@ -7,4 +7,6 @@ public interface ISalaRepository
     Task<IEnumerable<Sala>> GetAllAsync();
     Task<Sala?> GetByIdAsync(long id);
     Task<Sala> UpdateAsync(long id, int numero, int qtdLugares, bool temProjetor);
+
+    Task<int> CountAvailableAsync(int total, DateTime data);
 }

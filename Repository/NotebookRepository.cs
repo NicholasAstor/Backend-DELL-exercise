@@ -1,5 +1,6 @@
 using backend.Data;
 using backend.Models;
+using backend.Models.Enums;
 using backend.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
 
@@ -63,5 +64,19 @@ public class NotebookRepository : INotebookRepository
 
         _context.Notebooks.Remove(note);
         await _context.SaveChangesAsync();
+    }
+    
+    public async Task<int> CountAvailableAsync(int total, DateTime data)
+    {
+        var dataAlvo = data.Date;
+        
+        
+        var salasOcupadas = await _context.Alocacoes
+            .Where(a => a.TipoRecurso == TipoRecurso.Notebook && a.DataReserva.Date == dataAlvo)
+            .Select(a => a.IdRecurso)
+            .Distinct()
+            .CountAsync();
+
+        return total - salasOcupadas;
     }
 }
