@@ -37,11 +37,10 @@ public class SalaRepository : ISalaRepository
         return sala;
     }
     
-    public async Task<int> CountAvailableAsync(DateTime data)
+    public async Task<int> CountAvailableAsync(int total, DateTime data)
     {
         var dataAlvo = data.Date;
         
-        var totalSalas = await _context.Salas.CountAsync();
         
         var salasOcupadas = await _context.Alocacoes
             .Where(a => a.TipoRecurso == TipoRecurso.Sala && a.DataReserva.Date == dataAlvo)
@@ -49,6 +48,6 @@ public class SalaRepository : ISalaRepository
             .Distinct()
             .CountAsync();
 
-        return totalSalas - salasOcupadas;
+        return total - salasOcupadas;
     }
 }
